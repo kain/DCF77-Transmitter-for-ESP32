@@ -1,21 +1,20 @@
-arduino esp8266
 /*
-  based on this sketch: https://github.com/aknik/ESP32/blob/master/DFC77/DFC77_esp32_Solo.ino
+  Based on Andreas Spiess work: https://github.com/SensorsIot/DCF77-Transmitter-for-ESP32
 
-  This is an example file for using the time function in ESP8266 or ESP32 tu get NTP time
-  It offers two functions:
+  This is software part of DCF77 emulator setup based on ESP8266 or ESP32 hardware.
+  Precise time is obtained using NTP protocol via Wi-Fi network.
 
+  Some notes on used functions:
   - getNTPtime(struct tm * info, uint32_t ms) where info is a structure which contains time
   information and ms is the time the service waits till it gets a response from NTP.
-  Each time you cann this function it calls NTP over the net.
+  Each time you call this function it calls NTP over the network.
 
   If you do not want to call an NTP service every second, you can use
-  - getTimeReducedTraffic(int ms) where ms is the the time between two physical NTP server calls. Betwwn these calls,
-  the time structure is updated with the (inaccurate) timer. If you call NTP every few minutes you should be ok
+  - getTimeReducedTraffic(int ms) where ms is the the time between two physical NTP server calls. Between these calls,
+  the time structure is updated with the (inaccurate) timer. If you call NTP every few minutes it should be OK.
 
-  The time structure is called tm and has teh following values:
+  The time structure is called tm and has the following values:
 
-  Definition of struct tm:
   Member  Type  Meaning Range
   tm_sec  int seconds after the minute  0-61*
   tm_min  int minutes after the hour  0-59
@@ -27,18 +26,17 @@ arduino esp8266
   tm_yday int days since January 1  0-365
   tm_isdst  int Daylight Saving Time flag
 
-  because the values are somhow akwardly defined, I introduce a function makeHumanreadable() where all values are adjusted according normal numbering.
-  e.g. January is month 1 and not 0 And Sunday or monday is weekday 1 not 0 (according definition of MONDAYFIRST)
+  Because the values are somehow awkwardly defined, I introduce a function makeHumanreadable() where all values are adjusted according normal numbering,
+  e.g. January is month 1 and not 0 and Sunday or Monday is weekday 1 not 0 (according definition of MONDAYFIRST).
 
-  Showtime is an example on how you can use the time in your sketch
-
-  The functions are inspired by work of G6EJD ( https://www.youtube.com/channel/UCgtlqH_lkMdIa4jZLItcsTg )
+  Showtime is an example on how you can use the time in your sketch.
+  The functions are inspired by work of G6EJD ( https://www.youtube.com/channel/UCgtlqH_lkMdIa4jZLItcsTg).
 */
 
 
 #include <WiFi.h>
 #include <Ticker.h>
-#include <Time.h>
+#include <time.h>
 #include <credentials.h>
 
 const char* ssid = mySSID;
