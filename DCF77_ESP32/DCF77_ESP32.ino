@@ -45,7 +45,7 @@ const char* password = myPASSWORD;
 
 Ticker tickerSetLow;
 
-const byte ledPin = 4;  // built-in LED
+const byte ledPin = 2;  // built-in LED on ESP32 DEVKIT V1
 
 //complete array of pulses for three minutes
 //0 = no pulse, 1=100msec, 2=200msec
@@ -53,8 +53,8 @@ int impulseArray[60];
 int impulseCount = 0;
 int actualHours, actualMinutes, actualSecond, actualDay, actualMonth, actualYear, DayOfW;
 
-const char* NTP_SERVER = "ch.pool.ntp.org";
-const char* TZ_INFO    = "CET-1CEST-2,M3.5.0/02:00:00,M10.5.0/03:00:00";  // enter your time zone (https://remotemonitoringsystems.ca/time-zone-abbreviations.php)
+const char* NTP_SERVER = "pool.ntp.org";
+const char* TZ_INFO    = "MSK-3MSD,M3.5.0/2,M10.5.0/3";  // enter your time zone (https://remotemonitoringsystems.ca/time-zone-abbreviations.php)
 
 struct tm timeinfo;
 unsigned long lastEntryLED, lastEntryTime;
@@ -71,7 +71,7 @@ void setup() {
   tickerSetLow.attach_ms(100, DcfOut );
 
   ledcSetup(0, 77500, 8);
-  ledcAttachPin(5, 0); // Pin 5 has to be attached to the antenna
+  ledcAttachPin(13, 0); // Pin 13 has to be attached to the antenna
 
   pinMode (ledPin, OUTPUT);
   digitalWrite (ledPin, LOW);
