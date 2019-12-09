@@ -37,7 +37,7 @@
 #include <WiFi.h>
 #include <Ticker.h>
 #include <time.h>
-#include <credentials.h>
+#include "credentials.h"
 
 const char* ssid = mySSID;
 const char* password = myPASSWORD;
