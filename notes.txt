@@ -1,0 +1,11 @@
+David Fiddes
+1 week ago
+Good video on an important topic. Glad you fixed the example on Github. It's OK to call time() as often as you like the SNTP library used by the ESP Arduino core only calls it once an hour. Another thing that is useful to know is that if you have a well configured router that issues NTP servers in its DHCP and/or DHCPv6 responses your time server will be automatically configured. This will override any in your sketch unless you take steps to turn this behaviour off (a bad idea normally).
+Andreas Spiess
+Andreas Spiess
+1 week ago
+Thank you for the info. I assume it still is I’m GMT and you still need the time zone adjustment?
+David Fiddes
+David Fiddes
+1 day ago
+@Andreas Spiess Yep. The SNTP client functions exactly the same. You need to call configTime() to specify the local timezone and DST offset and enable the SNTP client. You can continue to specify servers here too but they will be overridden by whatever is in the DHCP response. I find this very helpful in reducing the configuration information that needs to be set up and stored on each device.
